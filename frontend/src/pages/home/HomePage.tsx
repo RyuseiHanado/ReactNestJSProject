@@ -1,17 +1,15 @@
 import { Box, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { Configuration, TodoApi, TodoDto } from '@/api'
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
-const apiConfig = new Configuration({ basePath: API_BASE_URL })
-const todoApi = new TodoApi(apiConfig)
+import { TodoDto } from '@/api'
+import NetworkTodoRepository from '@repository/NetworkTodoRepository.ts'
 
 export default function HomePage() {
   const [todos, setTodos] = useState<TodoDto[]>([])
 
   const getTodos = async () => {
+    const todoRepository = new NetworkTodoRepository()
     try {
-      const res = await todoApi.todoControllerGetTodos()
+      const res = await todoRepository.getTodos()
       setTodos(res)
     } catch (error) {
       console.error('エラー:', error)
@@ -29,7 +27,7 @@ export default function HomePage() {
       </Typography>
 
       <Box sx={{ mt: 2 }}>
-        {todos.length > 0 ? (
+        {todos && todos.length > 0 ? (
           todos.map((todo) => (
             <Typography key={todo.id}>
               {todo.completed ? '✅' : '❌'} {todo.task}

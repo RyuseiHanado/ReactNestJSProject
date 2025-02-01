@@ -10,7 +10,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@pages': resolve(__dirname, 'src/pages'),  // ← 追加
+      '@pages': resolve(__dirname, 'src/pages'),
+      '@repository': resolve(__dirname, 'src/repository'),
       '@test': resolve(__dirname, 'src/test'),
       '@': resolve(__dirname, 'src'),
     },
@@ -22,6 +23,7 @@ export default defineConfig({
     watch: false,
     alias: {
       '@pages': resolve(__dirname, './src/pages'),
+      '@repository': resolve(__dirname, 'src/repository'),
       '@test': resolve(__dirname, './src/test'),
       '@': resolve(__dirname, './src'),
     },

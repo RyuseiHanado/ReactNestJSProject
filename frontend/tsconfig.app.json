@@ -23,6 +23,7 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@pages/*": ["./src/pages/*"],
+      "@repository/*": ["./src/repository/*"],
       "@test/*": ["./src/test/*"],
       "@/*": ["./src/*"]
     }

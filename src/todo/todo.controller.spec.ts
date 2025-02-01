@@ -1,18 +1,24 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { TodoController } from './todo.controller'
+import { TodoDto } from './dto/todo.dto'
 
 describe('TodoController', () => {
-  let controller: TodoController
+  let todoController: TodoController
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TodoController],
     }).compile()
 
-    controller = module.get<TodoController>(TodoController)
+    todoController = module.get<TodoController>(TodoController)
   })
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined()
+  test('getTodos() は Todo のリストを返す', () => {
+    const expectedTodos: TodoDto[] = [
+      { id: 1, task: 'Buy groceries', completed: false },
+      { id: 2, task: 'Write NestJS API', completed: true },
+    ]
+
+    expect(todoController.getTodos()).toEqual(expectedTodos)
   })
 })

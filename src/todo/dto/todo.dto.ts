@@ -2,15 +2,16 @@ import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsNumber, IsString } from 'class-validator'
 
 export class TodoDto {
-  @ApiProperty({ example: 1 }) // Swagger のドキュメントに反映
+  @ApiProperty({ example: 1 })
   @IsNumber()
-  id: number
+  id!: number
 
   @ApiProperty({ example: 'Buy groceries' })
   @IsString()
-  task: string
+  task!: string
 
   @ApiProperty({ example: false })
   @IsBoolean()
-  completed: boolean
+  completed!: boolean
 }
+

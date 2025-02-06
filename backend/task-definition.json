@@ -1,0 +1,55 @@
+{
+    "family": "backend-task",
+    "taskRoleArn": "arn:aws:iam::735652452722:role/dev-ryusei-react-ecsTaskRole",
+    "executionRoleArn": "arn:aws:iam::735652452722:role/dev-ryusei-react-ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "256",
+    "memory": "512",
+    "containerDefinitions": [
+        {
+            "name": "backend",
+            "image": "735652452722.dkr.ecr.ap-northeast-1.amazonaws.com/dev-ryusei-react-backend-repo:latest",
+            "cpu": 1024,
+            "memory": 2048,
+            "portMappings": [
+                {
+                    "containerPort": 3000,
+                    "hostPort": 3000,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "HOST",
+                    "value": "0.0.0.0"
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "PORT",
+                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:735652452722:secret:dev-nestjs-ecstask-Bk0KVh:PORT::"
+                },
+                {
+                    "name": "FRONTEND_URL",
+                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:735652452722:secret:dev-nestjs-ecstask-Bk0KVh:FRONTEND_URL::"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/dev-ryusei-react-backend-task",
+                    "awslogs-region": "ap-northeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ],
+    "tags": [
+        {
+            "key": "Name",
+            "value": "dev-ryusei-react-backend-task"
+        }
+    ]
+}
